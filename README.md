@@ -10,7 +10,7 @@ O repositório está organizado da seguinte forma:
 
 - **Aulas:** Branch específica para qualquer assunto das aulas semanais.
 
-- **Atividades:** Branch específica para código fonte das PI.
+- **Atividades:** Sempre que necessário será criada uma branch para PI.
 
 ## Como Navegar no Repositório
 
