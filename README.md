@@ -6,11 +6,11 @@ Este repositório contém o código-fonte para as atividades e aulas semanais do
 
 O repositório está organizado da seguinte forma:
 
-- **master:** Vazia.
+- **Master:** Vazia.
 
 - **Aulas:** Branch específica para qualquer assunto das aulas semanais.
 
-- **atividades:** Branch específica para código fonte das PI.
+- **Atividades:** Branch específica para código fonte das PI.
 
 ## Como Navegar no Repositório
 
