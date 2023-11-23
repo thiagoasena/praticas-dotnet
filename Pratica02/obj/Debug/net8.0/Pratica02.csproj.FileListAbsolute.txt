@@ -1,0 +1,15 @@
+C:\Users\Thiago\desktop\praticas-dotnet\Pratica02\bin\Debug\net8.0\Pratica02.exe
+C:\Users\Thiago\desktop\praticas-dotnet\Pratica02\bin\Debug\net8.0\Pratica02.deps.json
+C:\Users\Thiago\desktop\praticas-dotnet\Pratica02\bin\Debug\net8.0\Pratica02.runtimeconfig.json
+C:\Users\Thiago\desktop\praticas-dotnet\Pratica02\bin\Debug\net8.0\Pratica02.dll
+C:\Users\Thiago\desktop\praticas-dotnet\Pratica02\bin\Debug\net8.0\Pratica02.pdb
+C:\Users\Thiago\desktop\praticas-dotnet\Pratica02\obj\Debug\net8.0\Pratica02.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Thiago\desktop\praticas-dotnet\Pratica02\obj\Debug\net8.0\Pratica02.AssemblyInfoInputs.cache
+C:\Users\Thiago\desktop\praticas-dotnet\Pratica02\obj\Debug\net8.0\Pratica02.AssemblyInfo.cs
+C:\Users\Thiago\desktop\praticas-dotnet\Pratica02\obj\Debug\net8.0\Pratica02.csproj.CoreCompileInputs.cache
+C:\Users\Thiago\desktop\praticas-dotnet\Pratica02\obj\Debug\net8.0\Pratica02.sourcelink.json
+C:\Users\Thiago\desktop\praticas-dotnet\Pratica02\obj\Debug\net8.0\Pratica02.dll
+C:\Users\Thiago\desktop\praticas-dotnet\Pratica02\obj\Debug\net8.0\refint\Pratica02.dll
+C:\Users\Thiago\desktop\praticas-dotnet\Pratica02\obj\Debug\net8.0\Pratica02.pdb
+C:\Users\Thiago\desktop\praticas-dotnet\Pratica02\obj\Debug\net8.0\Pratica02.genruntimeconfig.cache
+C:\Users\Thiago\desktop\praticas-dotnet\Pratica02\obj\Debug\net8.0\ref\Pratica02.dll
