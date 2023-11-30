@@ -10,30 +10,24 @@ class Program
     {
         while (true)
         {
-            Console.WriteLine("1. Cadastro de Produtos");
-            Console.WriteLine("2. Consulta de Produtos por Código");
-            Console.WriteLine("3. Atualização de Estoque");
-            Console.WriteLine("4. Relatórios");
-            Console.WriteLine("5. Sair");
-            Console.Write("Escolha uma opção: ");
+            MostrarMenu();
+            string escolha = Console.ReadLine();
 
-            int opcao = int.Parse(Console.ReadLine());
-
-            switch (opcao)
+            switch (escolha)
             {
-                case 1:
+                case "1":
                     CadastrarProduto();
                     break;
-                case 2:
+                case "2":
                     ConsultarProduto();
                     break;
-                case 3:
+                case "3":
                     AtualizarEstoque();
                     break;
-                case 4:
+                case "4":
                     GerarRelatorios();
                     break;
-                case 5:
+                case "5":
                     Environment.Exit(0);
                     break;
                 default:
@@ -43,29 +37,35 @@ class Program
         }
     }
 
+    static void MostrarMenu()
+    {
+        Console.WriteLine("1. Cadastro de Produtos");
+        Console.WriteLine("2. Consulta de Produtos por Código");
+        Console.WriteLine("3. Atualização de Estoque");
+        Console.WriteLine("4. Relatórios");
+        Console.WriteLine("5. Sair");
+        Console.Write("Escolha uma opção: ");
+    }
+
     static void CadastrarProduto()
     {
         try
         {
             Console.Write("Código do produto: ");
-            int codigo = int.Parse(Console.ReadLine());
+            int codigo = LerInteiroPositivo();
 
             Console.Write("Nome do produto: ");
             string nome = Console.ReadLine();
 
             Console.Write("Quantidade em estoque: ");
-            int quantidade = int.Parse(Console.ReadLine());
+            int quantidade = LerInteiroPositivo();
 
             Console.Write("Preço unitário: ");
-            double preco = double.Parse(Console.ReadLine());
+            double preco = LerDoublePositivo();
 
             estoque.Add((codigo, nome, quantidade, preco));
 
             Console.WriteLine("Produto cadastrado com sucesso!");
-        }
-        catch (FormatException)
-        {
-            Console.WriteLine("Erro: Entrada inválida. Certifique-se de digitar números nos campos corretos.");
         }
         catch (Exception ex)
         {
@@ -78,7 +78,7 @@ class Program
         try
         {
             Console.Write("Digite o código do produto: ");
-            int codigo = int.Parse(Console.ReadLine());
+            int codigo = LerInteiroPositivo();
 
             var produto = estoque.FirstOrDefault(p => p.Item1 == codigo);
 
@@ -87,17 +87,7 @@ class Program
                 throw new ProdutoNaoEncontradoException("Produto não encontrado.");
             }
 
-            Console.WriteLine($"Nome: {produto.Item2}");
-            Console.WriteLine($"Quantidade em estoque: {produto.Item3}");
-            Console.WriteLine($"Preço unitário: {produto.Item4:C}");
-        }
-        catch (FormatException)
-        {
-            Console.WriteLine("Erro: Entrada inválida. Certifique-se de digitar um número válido.");
-        }
-        catch (ProdutoNaoEncontradoException ex)
-        {
-            Console.WriteLine($"Erro: {ex.Message}");
+            ImprimirProduto(produto);
         }
         catch (Exception ex)
         {
@@ -110,7 +100,7 @@ class Program
         try
         {
             Console.Write("Digite o código do produto: ");
-            int codigo = int.Parse(Console.ReadLine());
+            int codigo = LerInteiroPositivo();
 
             var produto = estoque.FirstOrDefault(p => p.Item1 == codigo);
 
@@ -120,7 +110,7 @@ class Program
             }
 
             Console.Write("Digite a quantidade a ser adicionada (+) ou removida (-): ");
-            int quantidadeAtualizacao = int.Parse(Console.ReadLine());
+            int quantidadeAtualizacao = LerInteiro();
 
             if (produto.Item3 + quantidadeAtualizacao < 0)
             {
@@ -131,18 +121,6 @@ class Program
 
             Console.WriteLine("Estoque atualizado com sucesso!");
         }
-        catch (FormatException)
-        {
-            Console.WriteLine("Erro: Entrada inválida. Certifique-se de digitar um número válido.");
-        }
-        catch (ProdutoNaoEncontradoException ex)
-        {
-            Console.WriteLine($"Erro: {ex.Message}");
-        }
-        catch (EstoqueInsuficienteException ex)
-        {
-            Console.WriteLine($"Erro: {ex.Message}");
-        }
         catch (Exception ex)
         {
             Console.WriteLine($"Erro: {ex.Message}");
@@ -151,32 +129,86 @@ class Program
 
     static void GerarRelatorios()
     {
-        Console.Write("Informe o limite de quantidade para o relatório 1: ");
-        int limiteQuantidade = int.Parse(Console.ReadLine());
-
-        var relatorio1 = estoque.Where(p => p.Item3 < limiteQuantidade);
-        Console.WriteLine("Relatório 1: Produtos com quantidade em estoque abaixo do limite");
-        ImprimirRelatorio(relatorio1);
-
-        Console.Write("Informe o valor mínimo para o relatório 2: ");
-        double valorMinimo = double.Parse(Console.ReadLine());
-
-        Console.Write("Informe o valor máximo para o relatório 2: ");
-        double valorMaximo = double.Parse(Console.ReadLine());
-
-        var relatorio2 = estoque.Where(p => p.Item4 >= valorMinimo && p.Item4 <= valorMaximo);
-        Console.WriteLine("Relatório 2: Produtos com valor entre o mínimo e o máximo");
-        ImprimirRelatorio(relatorio2);
-
-        Console.WriteLine("Relatório 3: Valor total do estoque e valor total de cada produto");
-        var valorTotalEstoque = estoque.Sum(p => p.Item3 * p.Item4);
-        Console.WriteLine($"Valor total do estoque: {valorTotalEstoque:C}");
-
-        foreach (var produto in estoque)
+        try
         {
-            var valorTotalProduto = produto.Item3 * produto.Item4;
-            Console.WriteLine($"Produto: {produto.Item2}, Valor Total: {valorTotalProduto:C}");
+            Console.Write("Informe o limite de quantidade para o relatório 1: ");
+            int limiteQuantidade = LerInteiroPositivo();
+
+            var relatorio1 = estoque.Where(p => p.Item3 < limiteQuantidade);
+            Console.WriteLine("Relatório 1: Produtos com quantidade em estoque abaixo do limite");
+            ImprimirRelatorio(relatorio1);
+
+            Console.Write("Informe o valor mínimo para o relatório 2: ");
+            double valorMinimo = LerDouble();
+
+            Console.Write("Informe o valor máximo para o relatório 2: ");
+            double valorMaximo = LerDouble();
+
+            var relatorio2 = estoque.Where(p => p.Item4 >= valorMinimo && p.Item4 <= valorMaximo);
+            Console.WriteLine("Relatório 2: Produtos com valor entre o mínimo e o máximo");
+            ImprimirRelatorio(relatorio2);
+
+            Console.WriteLine("Relatório 3: Valor total do estoque e valor total de cada produto");
+            var valorTotalEstoque = estoque.Sum(p => p.Item3 * p.Item4);
+            Console.WriteLine($"Valor total do estoque: {valorTotalEstoque:C}");
+
+            foreach (var produto in estoque)
+            {
+                var valorTotalProduto = produto.Item3 * produto.Item4;
+                Console.WriteLine($"Produto: {produto.Item2}, Valor Total: {valorTotalProduto:C}");
+            }
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro: {ex.Message}");
+        }
+    }
+
+    static int LerInteiro()
+    {
+        int valor;
+        while (!int.TryParse(Console.ReadLine(), out valor))
+        {
+            Console.WriteLine("Entrada inválida. Tente novamente.");
+        }
+        return valor;
+    }
+
+    static int LerInteiroPositivo()
+    {
+        int valor;
+        while (!int.TryParse(Console.ReadLine(), out valor) || valor < 0)
+        {
+            Console.WriteLine("Entrada inválida. Digite um valor inteiro não negativo.");
+        }
+        return valor;
+    }
+
+    static double LerDouble()
+    {
+        double valor;
+        while (!double.TryParse(Console.ReadLine(), out valor))
+        {
+            Console.WriteLine("Entrada inválida. Tente novamente.");
+        }
+        return valor;
+    }
+
+    static double LerDoublePositivo()
+    {
+        double valor;
+        while (!double.TryParse(Console.ReadLine(), out valor) || valor < 0)
+        {
+            Console.WriteLine("Entrada inválida. Digite um valor numérico não negativo.");
+        }
+        return valor;
+    }
+
+    static void ImprimirProduto((int, string, int, double) produto)
+    {
+        Console.WriteLine($"Nome: {produto.Item2}");
+        Console.WriteLine($"Quantidade em estoque: {produto.Item3}");
+        Console.WriteLine($"Preço unitário: {produto.Item4:C}");
     }
 
     static void ImprimirRelatorio(IEnumerable<(int, string, int, double)> relatorio)
