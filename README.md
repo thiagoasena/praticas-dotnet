@@ -1,6 +1,6 @@
 # Repositório do Curso de .NET
 
-Este repositório contém o código-fonte para as atividades e aulas semanais do curso de .NET.
+Este repositório contém o código-fonte para as atividades e aulas semanais do curso de .NET, segunda parte da residência.
 
 ## Estrutura do Repositório
 
